@@ -52,11 +52,12 @@ fun MyApp(){
             val userInput = backStackEntry.arguments?.getString("userInput")
             ThirdScreen(navController, userInput)
         }
-        composable("fourth_screen/{userInput}",
+        composable("fourth_screen/{userInput}/{selectedOption}",
             arguments = listOf(navArgument("userInput") {defaultValue = "Nic nie wpisano"}))
         {backStackEntry ->
             val userInput = backStackEntry.arguments?.getString("userInput")
-            FourthScreen(navController, userInput)
+            val selectedOption = backStackEntry.arguments?.getString("selectedOption")
+            FourthScreen(navController, userInput, selectedOption = selectedOption)
         }
     }
     }

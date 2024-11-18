@@ -16,8 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.jetpack.ui.theme.CustomYellow
 
 @Composable
@@ -51,4 +54,11 @@ fun StartScreen(navController: NavHostController) {
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewStartScreen() {
+    val navController = rememberNavController()
+    StartScreen(navController = navController)
 }

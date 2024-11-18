@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -31,14 +33,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.jetpack.ui.theme.CustomYellow
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SecondScreen(navController: NavHostController) {
     var userInput by remember { mutableStateOf("") }
+    val keyboardController = LocalSoftwareKeyboardController.current
     Scaffold(
         topBar = {
             Row(
@@ -69,9 +76,24 @@ fun SecondScreen(navController: NavHostController) {
             OutlinedTextField(
                 value = userInput,
                 onValueChange = { userInput = it },
-                label = { Text("Twój tekst") },
-                modifier = Modifier.fillMaxWidth().padding(16.dp)
+                placeholder = { Text("Twój tekst") },
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        keyboardController?.hide()
+                    }
+                )
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewSecondScreen() {
+    val navController = rememberNavController()
+    SecondScreen(navController = navController)
 }
